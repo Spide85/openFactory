@@ -2,8 +2,8 @@
 spide2d_include_dirs = include_directories('include')
 
 source_files = [
-    'src/backend_sdl/sdlwindow.cpp',
-    'src/backend_sdl/sdlwindow.hpp',
+    'src/backend_sdl/window.cpp',
+    'src/backend_sdl/window.hpp',
     'src/hotkey.cpp',
     'src/window.cpp',
 ]

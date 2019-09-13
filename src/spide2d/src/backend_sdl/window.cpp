@@ -1,4 +1,4 @@
-#include "sdlwindow.hpp"
+#include "window.hpp"
 
 #include <spdlog/spdlog.h>
 // clang-format off
@@ -10,7 +10,7 @@
 #include <boost/asio/post.hpp>
 #include <boost/asio/executor_work_guard.hpp>
 
-namespace spide2d {
+namespace spide2d::sdl {
 
 namespace priv {
 boost::asio::io_context gl_context, worker_context;
@@ -22,7 +22,7 @@ struct sdl_exception : std::runtime_error {
     sdl_exception(std::string what) : std::runtime_error(what + ": " + SDL_GetError()) {}
 };
 
-sdl_window::sdl_window() : window() {
+window::window() : spide2d::window() {
     boost::asio::post(priv::gl_context, [this]() { init_sdl(); });
     start_gl_thread();
 
@@ -31,14 +31,18 @@ sdl_window::sdl_window() : window() {
     //}
 }
 
-void sdl_window::start_gl_thread() {
+[[nodiscard]] connection window::hotkey_pressed(std::string_view action, const hotkey_slot &callback) {}
+
+[[nodiscard]] connection window::hotkey_released(std::string_view action, const hotkey_slot &callback) {}
+
+void window::start_gl_thread() {
     gl_thread_ = std::thread([]() {
         spdlog::trace("Starting gl worker thread.");
         priv::gl_context.run();
     });
 }
 
-void sdl_window::init_sdl() {
+void window::init_sdl() {
     static auto alreadyInited {false};
     if (alreadyInited)
         throw std::runtime_error("[window] SDL2 was already inited.");
@@ -80,7 +84,7 @@ void sdl_window::init_sdl() {
  * @brief Dispatches all events from SDL. Must run in gl thread.
  *
  */
-void sdl_window::dispatch_sdl_events() {
+void window::dispatch_sdl_events() {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT)
@@ -93,4 +97,4 @@ void sdl_window::dispatch_sdl_events() {
     }
 }
 
-}  // namespace spide2d
+}  // namespace spide2d::sdl
