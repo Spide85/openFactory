@@ -5,7 +5,7 @@
 namespace spide2d {
 
 struct sdl_window : window {
-    sdl_window(int width, int height);
+    sdl_window();
 
 private:
     void init_sdl();

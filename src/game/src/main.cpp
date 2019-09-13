@@ -7,7 +7,7 @@
 int main(int argc, char *argv[]) {
     spdlog::set_level(spdlog::level::trace);
 
-    spdlog::info("C++ Standard used: {}", __cplusplus);
+    spdlog::trace("C++ Standard used: {}", __cplusplus);
 
     try {
         // spide2d::hotkeys hotkeys;

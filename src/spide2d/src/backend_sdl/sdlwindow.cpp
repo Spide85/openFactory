@@ -22,7 +22,7 @@ struct sdl_exception : std::runtime_error {
     sdl_exception(std::string what) : std::runtime_error(what + ": " + SDL_GetError()) {}
 };
 
-sdl_window::sdl_window(const int width, const int height) : window(width, height) {
+sdl_window::sdl_window() : window() {
     boost::asio::post(priv::gl_context, [this]() { init_sdl(); });
     start_gl_thread();
 

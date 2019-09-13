@@ -16,6 +16,7 @@ libspide2d = static_library('spide2d',
         sdl2,
         glad_dependency,
         libdl,
+        json,
         boost
     ], 
     include_directories: spide2d_include_dirs, 

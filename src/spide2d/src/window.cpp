@@ -2,6 +2,8 @@
 
 namespace spide2d {
 
-window::window(const int width, const int height) {}
+window::window() {}
+
+window window::create(const json &settings) {}
 
 }  // namespace spide2d
