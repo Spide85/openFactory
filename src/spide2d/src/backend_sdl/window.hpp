@@ -12,6 +12,10 @@ struct window : public spide2d::window {
 
     [[nodiscard]] connection hotkey_released(std::string_view action, const hotkey_slot &callback) override;
 
+    static void run_event_loop();
+
+    void swap() const;
+
 private:
     class impl;
     std::experimental::propagate_const<std::unique_ptr<impl>>

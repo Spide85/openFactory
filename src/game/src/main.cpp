@@ -10,7 +10,10 @@ int main(int argc, char *argv[]) {
     spdlog::trace("C++ Standard used: {}", __cplusplus);
 
     try {
-        auto window = spide2d::window::create(800, 600);
+        auto window  = spide2d::window::create(800, 600);
+        auto window2 = spide2d::window::create(800, 600);
+        spide2d::window::run_event_loop();
+        spdlog::info("Ende");
     } catch (std::exception &e) {
         spdlog::critical("Critical exception: {}, type: {}", e.what(), typeid(e).name());
     }
