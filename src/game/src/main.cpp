@@ -10,9 +10,7 @@ int main(int argc, char *argv[]) {
     spdlog::trace("C++ Standard used: {}", __cplusplus);
 
     try {
-        // spide2d::hotkeys hotkeys;
-
-        // of::game g(std::make_unique<spide2d::sdl_window>(800, 600, hotkeys));
+        auto window = spide2d::window::create(800, 600);
     } catch (std::exception &e) {
         spdlog::critical("Critical exception: {}, type: {}", e.what(), typeid(e).name());
     }
