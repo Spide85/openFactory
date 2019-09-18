@@ -31,10 +31,9 @@ struct window {
     [[nodiscard]] virtual connection hotkey_released(std::string_view action, const hotkey_slot &callback) = 0;
 
     /**
-     * @brief Starts the event loop. No matter how many windows you have, u will only start one main-loop.
-     *
+     * @brief Starts the event loop.
      */
-    static void run_event_loop();
+    virtual void run_event_loop() = 0;
 
 protected:
     window();
