@@ -6,7 +6,7 @@ namespace spide2d {
 
 window::window() {}
 
-std::unique_ptr<window> window::create(unsigned int width, unsigned int height) {
+std::unique_ptr<window> window::create(unsigned int, unsigned int) {
     return std::make_unique<sdl::window>();
 }
 

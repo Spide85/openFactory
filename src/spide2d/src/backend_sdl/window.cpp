@@ -17,11 +17,11 @@ window::window() : spide2d::window() {
     start_gl_thread();
 }
 
-window::~window() = default;
+window::~window() {
+    SDL_DestroyWindow(sdl_window_);
+    SDL_Quit();
+}
 
-[[nodiscard]] connection window::hotkey_pressed(std::string_view action, const hotkey_slot &callback) {}
-
-[[nodiscard]] connection window::hotkey_released(std::string_view action, const hotkey_slot &callback) {}
 /**
  * @brief Dispatches all events from SDL. Must run in gl thread.
  */
@@ -31,34 +31,26 @@ void window::dispatch_sdl_events() {
         switch (event.type) {
         case SDL_QUIT: break;
         case SDL_KEYDOWN: dispatch_sdl_keyboard_events(event.key); break;
-        case SDL_WINDOWEVENT: dispatch_sdl_window_events(event.window); break;
         }
-    }
-}
-
-void window::dispatch_sdl_window_events(const SDL_WindowEvent &event) {
-    switch (event.event) {
-    case SDL_WINDOWEVENT_FOCUS_GAINED:
-        // if (SDL_GetWindowFromID(event.windowID) == sdl_window_)
-        //    sdl_window_focus_ = true;
-        break;
-    case SDL_WINDOWEVENT_FOCUS_LOST:
-        // if (SDL_GetWindowFromID(event.windowID) == sdl_window_)
-        //    sdl_window_focus_ = false;
-        break;
     }
 }
 
 void window::dispatch_sdl_keyboard_events(const SDL_KeyboardEvent &event) {
     switch (event.type) {
     case SDL_KEYDOWN: break;
+
     case SDL_KEYUP: break;
     }
 }
+
 void window::init_sdl() {
-    static auto sdl_already_inited {false};
+    static std::mutex function_mutex;
+    static auto       sdl_already_inited {false};
+
+    // Locking the function to prevent multple instances initing at the same time.
+    std::lock_guard<std::mutex> lock(function_mutex);
     if (sdl_already_inited)
-        return;
+        throw std::runtime_error("Multiple concurrent windows are not supported.");
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
         throw sdl_exception("Could not initialize graphics");

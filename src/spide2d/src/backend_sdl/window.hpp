@@ -17,10 +17,6 @@ struct window : public spide2d::window {
     window();
     virtual ~window();
 
-    [[nodiscard]] connection hotkey_pressed(std::string_view action, const hotkey_slot &callback) override;
-
-    [[nodiscard]] connection hotkey_released(std::string_view action, const hotkey_slot &callback) override;
-
     void run_event_loop() override;
 
 protected:
@@ -37,7 +33,6 @@ private:
 
     void dispatch_sdl_events();
     void dispatch_sdl_keyboard_events(const SDL_KeyboardEvent &event);
-    void dispatch_sdl_window_events(const SDL_WindowEvent &event);
     void init_sdl();
     void queue_mainloop_work();
     void start_gl_thread();

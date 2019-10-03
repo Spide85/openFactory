@@ -4,7 +4,7 @@
 #include <spdlog/spdlog.h>
 #include <spide2d/window.hpp>
 
-int main(int argc, char *argv[]) {
+int main(int, char *[]) {
     spdlog::set_level(spdlog::level::trace);
 
     spdlog::trace("C++ Standard used: {}", __cplusplus);

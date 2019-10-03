@@ -1,6 +1,5 @@
 #pragma once
 
-#include "key.hpp"
 #include "signals.hpp"
 
 namespace spide2d {
@@ -11,9 +10,6 @@ namespace spide2d {
  * If the window is deleted, the render-context is deleted too. That means all resources are deleten from VRAM.
  */
 struct window {
-    using hotkey_signal = signal<void()>;            //!< The function definition of a hotkey-signal.
-    using hotkey_slot   = hotkey_signal::slot_type;  //!< Just a shortcut for a receiver slot of a hotkey.
-
     virtual ~window() = default;
 
     /**
@@ -25,10 +21,6 @@ struct window {
      * @return std::unique_ptr<window> The created window.
      */
     [[nodiscard]] static std::unique_ptr<window> create(unsigned int width, unsigned int height);
-
-    [[nodiscard]] virtual connection hotkey_pressed(std::string_view action, const hotkey_slot &callback) = 0;
-
-    [[nodiscard]] virtual connection hotkey_released(std::string_view action, const hotkey_slot &callback) = 0;
 
     /**
      * @brief Starts the event loop.

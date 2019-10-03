@@ -1,4 +1,4 @@
-project('OpenFactory', ['cpp', 'c'], default_options : ['cpp_std=c++17'])
+project('OpenFactory', ['cpp', 'c'], default_options : ['cpp_std=c++17', 'warning_level=3', 'werror=true'])
 
 eigen = dependency('eigen')
 spdlog = dependency('spdlog')

@@ -1,20 +1,28 @@
 #pragma once
 
-#include "key.hpp"
+#include "hotkey.hpp"
+#include "signals.hpp"
 
 #include <memory>
-#include <string_view>
+#include <string>
 
 namespace spide2d {
 
 struct hotkey_registry {
+    using hotkey_signal = signal<void()>;  //!< The function definition of a hotkey-signal.
+
+    virtual ~hotkey_registry() = default;
+
     /**
-     * @brief Registers a global hotkey.
      * **Example usage:**
      *
-     *     register_hotkey("close_window", key::create_from_human_readable("Escape"));
+     *     register_hotkey("close_window", hotkey{"Escape"});
      */
-    void register_hotkey(std::string_view action, key mapped_key);
+    virtual void register_hotkey(std::string action, hotkey mapped_key) = 0;
+
+    [[nodiscard]] virtual hotkey_signal &pressed(const std::string &action) = 0;
+
+    [[nodiscard]] virtual hotkey_signal &released(const std::string &action) = 0;
 };
 
 }  // namespace spide2d
