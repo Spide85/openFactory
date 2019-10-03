@@ -7,6 +7,8 @@
 
 namespace spide2d {
 
+enum class mouse_button : uint8_t { left, middle, right, extra1, extra2 };
+
 /**
  * @brief A window represents a native drawing area on screen. Most native APIs handle input with this window:
  * It's only possible to get input if the window has focus or is on fullscreen mode.
@@ -50,7 +52,20 @@ struct window {
      */
     signal<void()> close;
 
+    /**
+     * @brief Signal is emitted when the user moves the mouse across the window. Position is in UI pixel coordinates.
+     */
     signal<void(Eigen::Vector2i)> mouse_move;
+
+    /**
+     * @brief Signal is emitted when the user presses a mouse-button. Position is in UI pixel coordinates.
+     */
+    signal<void(Eigen::Vector2i, mouse_button)> mouse_down;
+
+    /**
+     * @brief Signal is emitted when the user releases a mouse-button. Position is in UI pixel coordinates.
+     */
+    signal<void(Eigen::Vector2i, mouse_button)> mouse_up;
 
 protected:
     window();

@@ -20,6 +20,10 @@ int main(int, char *[]) {
             window->stop_event_loop();
             spdlog::info("Eventloop stopped.");
         });
+        window->mouse_move.connect([](Eigen::Vector2i v) { spdlog::trace("Mouse: {}, {}", v.x(), v.y()); });
+        window->mouse_down.connect([](Eigen::Vector2i v, spide2d::mouse_button mb) {
+            spdlog::info("Mousebutton {} down at {}, {}", static_cast<uint8_t>(mb), v.x(), v.y());
+        });
         window->run_event_loop();
         spdlog::info("Main function terminated.");
     } catch (std::exception &e) {

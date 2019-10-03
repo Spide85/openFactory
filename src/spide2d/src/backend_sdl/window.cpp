@@ -31,7 +31,20 @@ void window::dispatch_sdl_events() {
         switch (event.type) {
         case SDL_KEYDOWN:
         case SDL_KEYUP: hotkey_registry_.dispatch_sdl_event(event.key, logic_context_); break;
-        case SDL_QUIT: logic_context_.post([&]() { close(); }); break;
+        case SDL_MOUSEMOTION:
+            logic_context_.post([this, event]() { mouse_move({event.motion.x, event.motion.y}); });
+            break;
+        case SDL_MOUSEBUTTONDOWN:
+            logic_context_.post([this, event]() {
+                mouse_down({event.button.x, event.button.y}, static_cast<mouse_button>(event.button.button));
+            });
+            break;
+        case SDL_MOUSEBUTTONUP:
+            logic_context_.post([this, event]() {
+                mouse_up({event.button.x, event.button.y}, static_cast<mouse_button>(event.button.button));
+            });
+            break;
+        case SDL_QUIT: logic_context_.post([this]() { close(); }); break;
         }
     }
 }
