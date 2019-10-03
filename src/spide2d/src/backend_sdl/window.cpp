@@ -29,17 +29,10 @@ void window::dispatch_sdl_events() {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
-        case SDL_QUIT: break;
-        case SDL_KEYDOWN: dispatch_sdl_keyboard_events(event.key); break;
+        case SDL_KEYDOWN:
+        case SDL_KEYUP: hotkey_registry_.dispatch_sdl_event(event.key, logic_context_); break;
+        case SDL_QUIT: logic_context_.post([&]() { close(); }); break;
         }
-    }
-}
-
-void window::dispatch_sdl_keyboard_events(const SDL_KeyboardEvent &event) {
-    switch (event.type) {
-    case SDL_KEYDOWN: break;
-
-    case SDL_KEYUP: break;
     }
 }
 
@@ -82,11 +75,6 @@ void window::init_sdl() {
 }
 
 void window::queue_mainloop_work() {
-    if (stop_mainloop_) {
-        gl_context_.stop();
-        worker_context_.stop();
-        return;
-    }
     boost::asio::post(gl_context_, [this]() { dispatch_sdl_events(); });
     boost::asio::post(gl_context_, [this]() { swap(); });
     boost::asio::post(gl_context_, [this]() { queue_mainloop_work(); });
@@ -94,7 +82,16 @@ void window::queue_mainloop_work() {
 
 void window::run_event_loop() {
     boost::asio::post(gl_context_, [this]() { queue_mainloop_work(); });
-    worker_context_.run();
+    logic_context_.run();
+}
+
+void window::stop_event_loop() {
+    gl_context_.stop();
+    logic_context_.stop();
+}
+
+spide2d::hotkey_registry &window::keyboard() {
+    return hotkey_registry_;
 }
 
 void window::start_gl_thread() {

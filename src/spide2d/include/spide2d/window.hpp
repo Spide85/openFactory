@@ -1,6 +1,9 @@
 #pragma once
 
+#include "hotkey_registry.hpp"
 #include "signals.hpp"
+
+#include <Eigen/Core>
 
 namespace spide2d {
 
@@ -26,6 +29,28 @@ struct window {
      * @brief Starts the event loop.
      */
     virtual void run_event_loop() = 0;
+
+    /**
+     * @brief Stops the event loop. Already queued events will be finished.
+     */
+    virtual void stop_event_loop() = 0;
+
+    /**
+     * @brief Gives you the hotkey registry of this window.
+     *
+     * @return hotkey_registry& A reference to the hotkey_registry. Lifetime/Ownership is bound to this object.
+     */
+    virtual hotkey_registry &keyboard() = 0;
+
+    /**
+     * @brief Close signal called when the user wants to close the window (by clicking on the X button oder pressing
+     * Command-Q on a Mac.)
+     *
+     * If you don't react, nothing will happen. In general this is the right point for "Do you really want to quit?"
+     */
+    signal<void()> close;
+
+    signal<void(Eigen::Vector2i)> mouse_move;
 
 protected:
     window();

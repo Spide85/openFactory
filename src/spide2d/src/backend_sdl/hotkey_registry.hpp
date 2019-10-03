@@ -1,9 +1,11 @@
 #include <SDL2/SDL_keyboard.h>
 #include <SDL_events.h>
+#include <boost/asio/io_context.hpp>
 #include <spide2d/hotkey_registry.hpp>
 #include <unordered_map>
 
 namespace spide2d::sdl {
+using io_context = boost::asio::io_context;
 
 struct hotkey_hasher {
     std::size_t operator()(const hotkey &k) const {
@@ -20,9 +22,11 @@ struct hotkey_registry : spide2d::hotkey_registry {
 
     [[nodiscard]] hotkey_signal &released(const std::string &action) override;
 
-    void dispatch_sdl_event(const SDL_KeyboardEvent &event);
+    void dispatch_sdl_event(const SDL_KeyboardEvent &event, io_context &context);
 
 private:
+    using action_to_hotkeys_map = std::unordered_map<std::string, hotkey_signal>;
+
     [[nodiscard]] static hotkey translate(SDL_Keysym k);
 
     /**
@@ -34,8 +38,10 @@ private:
      */
     std::unordered_multimap<hotkey, std::string, hotkey_hasher> hotkeys_;
 
-    std::unordered_map<std::string, hotkey_signal> pressed_signals_;
-    std::unordered_map<std::string, hotkey_signal> released_signals_;
+    action_to_hotkeys_map pressed_signals_;
+    action_to_hotkeys_map released_signals_;
+
+    void broadcast_hotkey(action_to_hotkeys_map &target, hotkey hk, io_context &context);
 };
 
 }  // namespace spide2d::sdl
