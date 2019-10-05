@@ -4,7 +4,6 @@ eigen = dependency('eigen')
 spdlog = dependency('spdlog')
 sdl2 = dependency('sdl2')
 boost = dependency('boost')
-json = subproject('json').get_variable('nlohmann_json_dep')
 
 
 src_game = [
@@ -40,7 +39,6 @@ executable(
         sdl2, 
         glad_dependency, 
         libdl,
-        json,
         boost
     ], 
     include_directories: [glad_includes, spide2d_include_dirs],
