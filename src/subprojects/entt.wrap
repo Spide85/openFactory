@@ -6,5 +6,5 @@ source_filename = entt.zip
 source_hash = ca07734ef53168704d70eee92b66263523e331e853f24a0a57deaedee8e6ec02
 
 patch_url = https://in.pachagecache.dir
-patch_filename = entt-master.tar.gz
+patch_filename = entt-master-wrap.tar.gz
 patch_hash = db9c0c2301de417d6bbfb41ee26a574227df091008daefef58d233babd5c8b87

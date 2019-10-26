@@ -8,5 +8,8 @@
             "name": "User-Interface",
             "path": "ui"
         }
-    ]
+    ],
+    "settings": {
+        "haxe.enableCompilationServer": false
+    }
 }

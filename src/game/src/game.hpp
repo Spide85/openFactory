@@ -3,6 +3,7 @@
 #include "mod.hpp"
 
 #include <memory>
+#include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/spdlog.h>
 #include <spide2d/window.hpp>
 
@@ -20,6 +21,7 @@ private:
     void setup_logging();
     void load_mods();
 
+    std::shared_ptr<spdlog::logger>  logger_ {spdlog::stdout_color_mt("game")};
     std::unique_ptr<spide2d::window> window_;
     std::vector<mod>                 mods_;
 };

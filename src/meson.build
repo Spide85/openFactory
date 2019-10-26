@@ -5,12 +5,15 @@ doctest_dep  = dependency('doctest', fallback: ['doctest',     'doctest_dep'])
 entt_dep     = dependency('entt',    fallback: ['entt',        'entt_dep'   ])
 eigen_dep    = dependency('eigen',   fallback: ['eigen',       'eigen_dep'  ])
 spdlog_dep   = dependency('spdlog',  fallback: ['spdlog',      'spdlog_dep' ])
+toml_dep     = dependency('toml',    fallback: ['toml',        'toml_dep'   ])
 nuklear_dep  = dependency('nuklear', fallback: ['nuklear',     'nuklear_dep'])
 lua_dep      = dependency('lua',     fallback: ['lua',         'lua_dep'    ])
 sdl2_dep     = dependency('sdl2')   # Missing fallback
 boost_dep    = dependency('boost')  # Missing fallback
 
 # TODO
+
+subproject('spdlog')
 
 src_game = [
     'game/src/scripting/context.hpp',
@@ -71,6 +74,7 @@ executable(
         libdl,
         lua_dep,
         entt_dep,
+        toml_dep,
         doctest_dep,
         nuklear_dep,
         boost_dep

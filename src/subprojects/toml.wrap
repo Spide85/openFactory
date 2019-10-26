@@ -1,0 +1,10 @@
+[wrap-file]
+directory = toml11-master
+
+source_url = https://github.com/ToruNiina/toml11/archive/master.tar.gz
+source_filename = toml-master.tar.gz
+source_hash = 77f24def122aefa757a0668d1609b7d208ab12d84a176f097f407b9166187c9c
+
+patch_url = https://not.online
+patch_filename = toml-master-wrap.tar.gz
+patch_hash = c473f96a9a59731455a3fd70f63877084c0d190982584e591610efe9883ac948

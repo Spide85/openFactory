@@ -6,5 +6,5 @@ source_filename = nuklear-master.tar.gz
 source_hash = 4a49abf625030bcca517e4c7ca3bf37eba68db8c24f19ed4b46dfd2ef9e0df8d
 
 patch_url = https://not.online
-patch_filename = nuklear-master_wrap.tar.gz
+patch_filename = nuklear-master-wrap.tar.gz
 patch_hash = 7ebdf056729963d7b3596d97c49fa020949e6e667958d69ab3cbf5e35f8f4624

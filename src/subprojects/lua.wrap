@@ -7,5 +7,5 @@ source_hash = 0c2eed3f960446e1a3e4b9a1ca2f3ff893b6ce41942cf54d5dd59ab4b3b058ac
 
 
 patch_url = https://not.online
-patch_filename = lua-5.3.5_wrap.tar.gz
+patch_filename = lua-wrap.tar.gz
 patch_hash = 9973891e4c2b51ce22c1388ce53ce38f120e297d75b712b7f5016a349b2068e9

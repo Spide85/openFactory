@@ -2,23 +2,22 @@
 
 #include "ressources.hpp"
 
-#include <spdlog/sinks/stdout_color_sinks.h>
-
 namespace of {
 
 game::game(std::unique_ptr<spide2d::window> window) : window_(std::move(window)) {
-    setup_logging();
-    load_mods();
-}
+    window_->keyboard().register_hotkey("instant terminate", spide2d::hotkey {"Escape"});
+    window_->keyboard().pressed("instant terminate").connect([&window]() {
+        window->stop_event_loop();
+        spdlog::info("Eventloop stopped.");
+    });
 
-void game::setup_logging() {
-    auto console = spdlog::stdout_color_mt("game_logger");
-    console->info("Logger created.");
+    load_mods();
+    window_->run_event_loop();
 }
 
 void game::load_mods() {
     for (const auto mod : fs::directory_iterator(mods_dir())) {
-        spdlog::info(mod.path().string());
+        mods_.emplace_back(mod.path());
     }
 }
 

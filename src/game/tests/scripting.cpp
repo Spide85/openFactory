@@ -4,7 +4,7 @@
 
 SCENARIO("Scripting works") {
     GIVEN("A context") {
-        of::script::context context;
+        // of::script::context context;
 
         WHEN("Running test scripts") {
             THEN("All should be zero") {

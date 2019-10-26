@@ -1,0 +1,7 @@
+[general]
+name        = "Base"
+author      = "Andre Kreis"
+author_mail = "a.kreis@mailbox.org"
+
+[script]
+root        = "scripts/_build/"

@@ -1,7 +1,15 @@
+-dce full
+--each
+
+-lua _build/Main.lua
+-main Main
+
+--next
 -cp ui
 
 --each
 
 -lua _build/ui/window.lua
 -main Window
+
  
