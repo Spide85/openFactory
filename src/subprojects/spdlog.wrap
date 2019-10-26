@@ -1,0 +1,10 @@
+[wrap-file]
+directory = spdlog-master
+
+source_url = https://github.com/gabime/spdlog/archive/master.tar.gz
+source_filename = spdlog-master.tar.gz
+source_hash = 194a3222057fe28fd84fd7ae82215cd0a6aad58e8b9c71ee5db8b114f94b1fbc
+
+patch_url = https://not.online
+patch_filename = spdlog-master-wrap.zip
+patch_hash = 715a0229781019b853d409cc0bf891ee4b9d3a17bec0cf87f4ad30b28bbecc87

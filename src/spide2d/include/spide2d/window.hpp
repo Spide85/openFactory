@@ -4,6 +4,7 @@
 #include "signals.hpp"
 
 #include <Eigen/Core>
+#include <entt/entt.hpp>
 
 namespace spide2d {
 
@@ -66,6 +67,12 @@ struct window {
      * @brief Signal is emitted when the user releases a mouse-button. Position is in UI pixel coordinates.
      */
     signal<void(Eigen::Vector2i, mouse_button)> mouse_up;
+
+    /**
+     * @brief The window has a renderer in the backhand. The renderer will access the ecs to find all drawable things.
+     *
+     */
+    entt::registry ecs_registry;
 
 protected:
     window();

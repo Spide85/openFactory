@@ -4,8 +4,17 @@
 #include <spdlog/spdlog.h>
 #include <spide2d/window.hpp>
 
-int main(int, char *[]) {
+#define DOCTEST_CONFIG_IMPLEMENT
+#include <doctest.h>
+
+int main(int argc, char *argv[]) {
     spdlog::set_level(spdlog::level::trace);
+
+    // Test&run
+    doctest::Context context(argc, argv);
+    int              res = context.run();
+    if (context.shouldExit())
+        return res;
 
     spdlog::trace("C++ Standard used: {}", __cplusplus);
 
@@ -20,7 +29,6 @@ int main(int, char *[]) {
             window->stop_event_loop();
             spdlog::info("Eventloop stopped.");
         });
-        window->mouse_move.connect([](Eigen::Vector2i v) { spdlog::trace("Mouse: {}, {}", v.x(), v.y()); });
         window->mouse_down.connect([](Eigen::Vector2i v, spide2d::mouse_button mb) {
             spdlog::info("Mousebutton {} down at {}, {}", static_cast<uint8_t>(mb), v.x(), v.y());
         });

@@ -1,0 +1,7 @@
+-cp ui
+
+--each
+
+-lua _build/ui/window.lua
+-main Window
+ 

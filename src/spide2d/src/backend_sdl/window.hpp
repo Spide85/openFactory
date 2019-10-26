@@ -3,6 +3,7 @@
 
 #include <boost/asio/executor_work_guard.hpp>
 #include <boost/asio/io_context.hpp>
+#include <spide2d/systems/ui_renderer.hpp>
 #include <spide2d/window.hpp>
 #include <thread>
 // clang-format off
@@ -34,6 +35,7 @@ private:
 
     SDL_Window *  sdl_window_ {nullptr};
     SDL_GLContext sdl_gl_context_;
+    ui_renderer   ui_renderer_;
 
     hotkey_registry hotkey_registry_;
 
