@@ -1,0 +1,6 @@
+[submodule "src/entt"]
+	path = src/extern/entt
+	url = https://github.com/skypjack/entt.git
+[submodule "src/nuklear"]
+	path = src/extern/nuklear
+	url = https://github.com/vurtun/nuklear.git
